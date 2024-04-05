@@ -10,7 +10,7 @@ namespace schoolProject
     {
         public int points { get; set; }
         public string name { get; set; }
-        public HeroPosition Position { get; set; } = new(0, 0);
+        public Position heroPosition { get; set; } = new(0, 0);
         private static Hero? HeroInstance { get; set; } 
         
         public Hero() { }

@@ -8,26 +8,24 @@ namespace schoolProject
 {
     internal class Board
     {
+        private char[,] gameBoard;
+        private List<Wall> walls { get; set; }
+        private static Board? board;
 
-        //char[,] Board { set; get; }
-        List<Wall> Walls { get; set; }
-        private static Board? gameBoard;
-
-        public Board() {}
+        public Board() {
+            gameBoard = new char[6, 6];
+        }
 
         public static Board InitializeGameBoard()
         {
           
-            if(gameBoard == null )
+            if(board == null )
             {
-                gameBoard = new Board();
+                board = new Board();
             }
 
-            return gameBoard;
+            return board;
 
         }
-
-
-
     }
 }

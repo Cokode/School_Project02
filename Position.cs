@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace schoolProject
 {
-    public record HeroPosition (int row, int col);
+    public record Position (int row, int col);
 }

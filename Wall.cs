@@ -1,12 +1,17 @@
 ﻿namespace schoolProject
 {
-    internal class Wall
+    public class Wall
     {
-        bool up {  get; set; }
-        bool down { get; set; }
-        bool left { get; set; }
-        bool right { get; set; }
-        public Position? wallPosition { get; set; }
+        bool isUp {  get; set; }
+        bool isDown { get; set; }
+        bool isLeft { get; set; }
+        bool isRight { get; set; }
+        public Position? WallPosition { get; set; }
+
+        public Wall()
+        {
+
+        }
          
     }  
 }

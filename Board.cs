@@ -6,26 +6,21 @@ using System.Threading.Tasks;
 
 namespace schoolProject
 {
-    internal class Board
+    public class Board
     {
-        private char[,] gameBoard;
-        private List<Wall> walls { get; set; }
+        public char[,] gameBoard { get; set; }
+        public List<Wall> walls { get; set; }
         private static Board? board;
 
-        public Board() {
+        private Board() {
             gameBoard = new char[6, 6];
+            walls = [];
         }
 
         public static Board InitializeGameBoard()
         {
-          
-            if(board == null )
-            {
-                board = new Board();
-            }
-
+            board ??= new Board();
             return board;
-
         }
     }
 }

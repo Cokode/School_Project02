@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace schoolProject
 {
-    internal class Hero
+    public class Hero
     {
         public int points { get; set; }
         public string name { get; set; }
         public Position heroPosition { get; set; } = new(0, 0);
+        public Direction HeroDirection { get; set; }
         private static Hero? HeroInstance { get; set; } 
         
         public Hero() { }

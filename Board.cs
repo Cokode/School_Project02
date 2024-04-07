@@ -10,11 +10,13 @@ namespace schoolProject
     {
         public char[,] gameBoard { get; set; }
         public List<Wall> walls { get; set; }
+        public List<Reward> rewards { get; set; }
         private static Board? board;
 
         private Board() {
             gameBoard = new char[6, 6];
-            walls = [];
+            rewards = []; // simplified initialization
+            walls = []; // simplified initialization
         }
 
         public static Board InitializeGameBoard()

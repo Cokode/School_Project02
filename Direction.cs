@@ -8,6 +8,9 @@ namespace schoolProject
 {
     public enum Direction
     {
-        NORTH, SOUTH, WEST, EAST
+       North,
+       South,
+       West,
+       East
     }
 }

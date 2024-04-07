@@ -10,7 +10,10 @@
 
         public Wall()
         {
-
+            isUp = false;
+            isDown = false;
+            isLeft = false;
+            isRight = false;
         }
          
     }  

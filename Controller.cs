@@ -56,6 +56,16 @@ namespace schoolProject
             }
         }
 
+        public void LoadWalls()
+        {
+            int row = Board.gameBoard.GetLength(0)-1;
+            do
+            {
+                GenerateWalls(row);
+                row--;
+            } while (row >= 0);
+        }
+
         public void GenerateRewards(int numberOfReward)
         {
             Position po;

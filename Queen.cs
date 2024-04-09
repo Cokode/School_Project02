@@ -4,20 +4,14 @@ namespace schoolProject
 {
     public class Queen
     {
-        public Position queenPosition;
-        public int points;
+        public Position queenPosition {get; }
+        public int Points {get; }
 
-        public Queen(Position queenPosition, int points)
+        public Queen()
         {
-            this.queenPosition = queenPosition;
-            this.points = points;
+            this.queenPosition = new(17,8);
+            this.Points = 100;
         }
 
-        public override string ToString()
-        {
-            return queenPosition.ToString();
-        } // from the window 
-
-        
     }
 }

@@ -15,7 +15,7 @@ namespace schoolProject
         private Queen? Queen {get;}
 
         private Board() {
-            gameBoard = new char[6, 6];
+            gameBoard = new char[18, 9];
             rewards = []; // simplified initialization
             walls = []; // simplified initialization
             Queen = new Queen();

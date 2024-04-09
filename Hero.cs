@@ -9,12 +9,15 @@ namespace schoolProject
     public class Hero
     {
         public int points { get; set; }
-        public string name { get; set; }
-        public Position heroPosition { get; set; } = new(0, 0);
-        public Direction HeroDirection { get; set; }
+        public string name { get;}
+        public Position heroPosition { get; set; }
+       // public Direction HeroDirection { get; set; } // may be redundant, remove 
         private static Hero? HeroInstance { get; set; } 
         
-        public Hero() { }
+        private Hero() {
+            this.name = "Hero";
+            heroPosition = new(0, 0);
+        }
 
         public static Hero InitializeHero()
         {

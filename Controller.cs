@@ -19,14 +19,19 @@ namespace schoolProject
         {
             BoardLogic.AddHero(Board.gameBoard, Hero);
             BoardLogic.AddQueen(Board.gameBoard, Queen);
-            Board.walls = GenerateWalls(10, Board.walls);
-            Board.rewards = GenerateRewards(4, Board.rewards);
+            GenerateWalls(10);
+            GenerateRewards(12);
             BoardLogic.LoadReward(Board.rewards, Board.gameBoard);
             BoardLogic.PrintBoard(Board.gameBoard);
             
         }
 
-        public List<Wall> GenerateWalls(int numberOfWall, List<Wall> walls) 
+        //public void printBoard()
+        //{
+        //    BoardLogic.PrintBoard(Board.gameBoard);
+        //}
+
+        public void GenerateWalls(int numberOfWall) 
         {
             Random rand = new();
 
@@ -35,8 +40,8 @@ namespace schoolProject
                 Position po;
                 do
                 {
-                    po = new(rand.Next(1, 5), rand.Next(1, 5));
-                } while (IsPositionTaken(po, walls));
+                    po = new(rand.Next(0, 18), rand.Next(0, 8));
+                } while (IsPositionTaken(po, Board.walls));
 
                 Wall newWall = new Wall(
                     isUp: rand.Next(0, 2) == 1,
@@ -46,39 +51,44 @@ namespace schoolProject
                     position: po
                 );
 
-                walls.Add(newWall);
+                Board.walls.Add(newWall);
             }
-
-            return walls;
         }
 
-        public List<Reward> GenerateRewards(int numberOfReward, List<Reward> rewards)
+        public void GenerateRewards(int numberOfReward)
         {
+            Position po;
             Random rand = new Random();
          
             for (int i = 0; i < numberOfReward; i++)
             {
-                Position po; 
+               
                 do
                 {
-                    po = new(rand.Next(0, 6), rand.Next(0, 6));
-                } while (IsPositionTaken2(po, rewards));
+                    po = new(rand.Next(0, 18), rand.Next(0, 8));
+                } while (IsPositionTaken2(po, Board.rewards));
 
                 Reward reward = new Reward(
                      rewardPosition: po,
                      points: rand.Next(5, 20)
                  );
 
-                rewards.Add(reward);
+                Board.rewards.Add(reward);
             }
 
-            return rewards;
+            Reward reward2 = new Reward(
+                     rewardPosition: new Position(1, 0),
+                     points: rand.Next(5, 20)
+                 );
+
+            Board.rewards.
+                Add(reward2);
         }
 
         private bool IsPositionTaken2(Position position, List<Reward> rewards)
         {
             if ((position.row == 0 && position.col == 0) ||
-                (position.row == 5 && position.col == 5)) return true; // ensure there is no wall in the hero start index
+                (position.row == 17 && position.col == 8)) return true; // ensure there is no wall in the hero start index
 
             foreach (var re in rewards)
             {
@@ -97,8 +107,11 @@ namespace schoolProject
 
             foreach (var wall in walls)
             {
-                if (IsAdjacent(position, wall.WallPosition) || wall.WallPosition == position)
+                if (wall.WallPosition == position)
+                {
                     return true;
+                }
+                    
             }
 
             return false;
@@ -117,42 +130,65 @@ namespace schoolProject
 
         public void MovePosibility()
         {
-            //Console.WriteLine("Press a key (Page Up, Page Down, End, Home) or press Q to quit...");
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            Position po;
-            Wall? w;
+            Console.WriteLine("Press a key (Page Up, Page Down, End, Home) or press Q to quit...");
 
-            switch (keyInfo.Key)
+            Wall? w;
+            Position po;
+            ConsoleKeyInfo keyInfo;
+            
+            do
             {
-                case ConsoleKey.PageUp:
-                    po = BoardLogic.SetHeroDirection(Direction.North, Hero);
-                    if (BoardLogic.validMoveIndex(po))
-                    {
-                        w = BoardLogic.CheckForWall(Board.walls, Hero.heroPosition);
-                        if (w != null)
+                keyInfo = Console.ReadKey(true);
+
+                switch (keyInfo.Key)
+                {
+                    case ConsoleKey.PageUp:
+                        po = BoardLogic.SetHeroDirection(Direction.North, Hero);
+                        if (BoardLogic.validMoveIndex(po))
                         {
-                            if (BoardLogic.CheckBlockedArea(w, 'U'))
+                            w = BoardLogic.CheckForWall(Board.walls, Hero.heroPosition);
+                            if (w != null) // there is a wall 
                             {
-                                // not a possible move. 
+                                if (BoardLogic.CheckBlockedArea(w, 'U'))
+                                {
+                                    // not a possible move. 
+                                }
+                                else
+                                {
+                                    // is a possible move
+                                    ImplementMove(po);
+                                }
                             }
-                            else
+                            else // there is no wall 
                             {
-                                // is a possible move
-                                gameBaord[hero.heroPosition.row, hero.heroPosition.col] = ' ';
-                                hero.heroPosition = po;
-                                AddHero(gameBaord, hero);
-                                rewardAdder(CheckForReward(hero, rewards), hero);
+                                ImplementMove(po);
                             }
                         }
-                    }
+                        else
+                        {
+                            Console.WriteLine("This direction is not possible.");
+                        }
 
-                    break;
+                        break;
 
-                case ConsoleKey.PageDown: break;
-                case ConsoleKey.End: break;
-                case ConsoleKey.Home: break;
-                default: break;
-            }
+                    case ConsoleKey.PageDown: break;
+                    case ConsoleKey.End: break;
+                    case ConsoleKey.Home: break;
+                    default:
+                        Console.WriteLine("You've entered the wrong key.");
+                        break;
+                }
+            } while (keyInfo.Key != ConsoleKey.Q);
+
+            
+        }
+
+        public void ImplementMove(Position po)
+        {
+            Board.gameBoard[Hero.heroPosition.row, Hero.heroPosition.col] = ' ';
+            Hero.heroPosition = po;
+            BoardLogic.AddHero(Board.gameBoard, Hero);
+            BoardLogic.rewardAdder(BoardLogic.CheckForReward(Hero, Board.rewards), Hero);
         }
 
     }

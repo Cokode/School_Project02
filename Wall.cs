@@ -10,7 +10,7 @@
         {
         }
 
-        public Wall(char wallType, bool isAWall, Position position)
+        public Wall(bool isAWall, Position position)
         {
             this.wallType = wallType;
             this.isAWall = isAWall;

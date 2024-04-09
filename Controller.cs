@@ -13,6 +13,7 @@ namespace schoolProject
         private BoardLogic BoardLogic = new BoardLogic();
         private Hero Hero = Hero.InitializeHero();
         private Queen Queen = new Queen();
+        private Random rand = new();
 
         public Controller() { }
 
@@ -32,24 +33,24 @@ namespace schoolProject
         //    BoardLogic.PrintBoard(Board.gameBoard);
         //}
 
-        public void GenerateVerticalWalls(int row) 
+        public void GenerateWalls(int row) 
         {
-            Random rand = new();
+            _ = row % 2 == 0 ? '-' : '|';
+            Position po;
+            Wall newWall;
 
             for (int i = 0; i < 8; i++)
-            {
-                Position po;
+            { 
                 do
                 {
                     po = new(row, rand.Next(0, 11));
                 } while (IsPositionTaken(po));
 
-                Wall newWall = new Wall(
+                    newWall = new Wall(
                     isAWall: rand.Next(0, 2) == 1,
                     position: po
                 );
 
-                newWall.wallType = newWall.isAWall ? '|' : ' ';
                 Board.gameBoard[po.row, po.col] = newWall.wallType;
                 Board.walls.Add(newWall);
             }

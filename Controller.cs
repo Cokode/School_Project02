@@ -31,7 +31,7 @@ namespace schoolProject
         //    BoardLogic.PrintBoard(Board.gameBoard);
         //}
 
-        public void GenerateWalls(int numberOfWall) 
+        public void GenerateVerticalWalls(int numberOfWall) 
         {
             Random rand = new();
 
@@ -40,17 +40,15 @@ namespace schoolProject
                 Position po;
                 do
                 {
-                    po = new(rand.Next(0, 18), rand.Next(0, 8));
+                    po = new(rand.Next(0, 22), rand.Next(0, 11));
                 } while (IsPositionTaken(po, Board.walls));
 
                 Wall newWall = new Wall(
-                    isUp: rand.Next(0, 2) == 1,
-                    isDown: rand.Next(0, 2) == 1,
-                    isLeft: rand.Next(0, 2) == 1,
-                    isRight: rand.Next(0, 2) == 1,
+                    isAWall: rand.Next(0, 2) == 1,
                     position: po
                 );
 
+                newWall.wallType = newWall.isAWall ? '|' : ' ';
                 Board.walls.Add(newWall);
             }
         }

@@ -15,8 +15,10 @@ namespace schoolProject
         private static Hero? HeroInstance { get; set; } 
         
         private Hero() {
-            this.name = "Hero";
-            heroPosition = new(0, 0);
+            Random r = new Random();
+            name = "Hero";
+            int col = r.Next(0, 15);
+            heroPosition = new(0, col);
         }
 
         public static Hero InitializeHero()

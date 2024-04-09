@@ -22,8 +22,8 @@ namespace schoolProject
             BoardLogic.AddHero(Board.gameBoard, Hero);
             BoardLogic.AddQueen(Board.gameBoard, Queen);
             LoadWalls();
-            GenerateRewards(12);
-            BoardLogic.LoadReward(Board.rewards, Board.gameBoard);
+            //GenerateRewards(12);
+            //BoardLogic.LoadReward(Board.rewards, Board.gameBoard);
             BoardLogic.PrintBoard(Board.gameBoard);
             
         }
@@ -35,7 +35,7 @@ namespace schoolProject
 
         public void GenerateWalls(int row) 
         {
-            _ = row % 2 == 0 ? '-' : '|';
+            char t = row % 2 == 0 ? '|' : '-';
             Position po;
             Wall newWall;
 
@@ -43,7 +43,7 @@ namespace schoolProject
             { 
                 do
                 {
-                    po = new(row, rand.Next(0, 11));
+                    po = new(row, rand.Next(0, 15));
                 } while (IsPositionTaken(po));
 
                     newWall = new Wall(
@@ -51,7 +51,9 @@ namespace schoolProject
                     position: po
                 );
 
+                newWall.wallType = newWall.isAWall ? t : ' ';
                 Board.gameBoard[po.row, po.col] = newWall.wallType;
+                
                 Board.walls.Add(newWall);
             }
         }

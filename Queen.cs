@@ -9,7 +9,7 @@ namespace schoolProject
 
         public Queen()
         {
-            this.queenPosition = new(17,8);
+            this.queenPosition = new(21,10);
             this.Points = 100;
         }
 

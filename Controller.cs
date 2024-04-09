@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,17 +32,17 @@ namespace schoolProject
         //    BoardLogic.PrintBoard(Board.gameBoard);
         //}
 
-        public void GenerateVerticalWalls(int numberOfWall) 
+        public void GenerateVerticalWalls(int row) 
         {
             Random rand = new();
 
-            for (int i = 0; i < numberOfWall; i++)
+            for (int i = 0; i < 8; i++)
             {
                 Position po;
                 do
                 {
-                    po = new(rand.Next(0, 22), rand.Next(0, 11));
-                } while (IsPositionTaken(po, Board.walls));
+                    po = new(row, rand.Next(0, 11));
+                } while (IsPositionTaken(po));
 
                 Wall newWall = new Wall(
                     isAWall: rand.Next(0, 2) == 1,
@@ -49,6 +50,7 @@ namespace schoolProject
                 );
 
                 newWall.wallType = newWall.isAWall ? '|' : ' ';
+                Board.gameBoard[po.row, po.col] = newWall.wallType;
                 Board.walls.Add(newWall);
             }
         }
@@ -98,22 +100,26 @@ namespace schoolProject
             return false;
         }
 
-        private bool IsPositionTaken(Position position, List<Wall> walls)
+        private bool IsPositionTaken(Position position)
         {
-            if (position.row == 0 && position.col == 0)
-                return true; // Ensure there is no wall in the hero start index
+            int column = position.col;
 
-            foreach (var wall in walls)
+            // Check if the position is occupied by the hero or queen
+            if ((position.row == Hero.heroPosition.row && position.col == Hero.heroPosition.col) ||
+                (position.row == Queen.queenPosition.row && position.col == Queen.queenPosition.col))
             {
-                if (wall.WallPosition == position)
-                {
-                    return true;
-                }
-                    
+                return true;
+            }
+
+            // Check if the column is an odd number
+            if (column % 2 != 0)
+            {
+                return true;
             }
 
             return false;
         }
+
 
         private bool IsAdjacent(Position pos1, Position pos2)
         {

@@ -92,7 +92,7 @@ namespace schoolProject
                     char hero = gameBoard[i, j];
                     char displayChar = ' ';
 
-                    if (hero == 'H' || hero == 'Q' || hero == '+' || hero == '^' || hero == '$')
+                    if (hero == 'H' || hero == 'Q' || hero == '+' || hero == '|' || hero == '-')
                     {
                         displayChar = hero;
                     }
@@ -253,7 +253,7 @@ namespace schoolProject
         public void rewardAdder(int points, Hero hero)
         {
             hero.points += points;
-            Console.WriteLine("${points} added to Hero ");
+            Console.WriteLine($"{points} added to Hero ");
         }
     }
 }

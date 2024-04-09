@@ -1,4 +1,5 @@
 ﻿using System.Net.Security;
+using System.Xml.Linq;
 
 namespace schoolProject
 {
@@ -9,7 +10,9 @@ namespace schoolProject
 
         public Queen()
         {
-            this.queenPosition = new(21,14);
+            Random r = new Random();
+            int col = r.Next(0, 15);
+            queenPosition = new(21, col);
             this.Points = 100;
         }
 

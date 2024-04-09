@@ -168,16 +168,20 @@ namespace schoolProject
             switch (direction)
             {
                 case Direction.North:
-                    po = new Position(--row, column);
+                    row -= 2;
+                    po = new Position(row, column);
                     break;
 
                 case Direction.South:
-                    po = new Position(++row, column);
+                    row += 2;
+                    po = new Position(row, column);
                     break;
                 case Direction.West:
-                    po = new Position(row, --column);
+                    column -= 2;
+                    po = new Position(row, column);
                     break;
                 case Direction.East:
+                    column += 2;
                     po = new Position(row, ++column);
                     break;
 

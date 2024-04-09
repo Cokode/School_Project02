@@ -14,72 +14,10 @@ namespace schoolProject
     public class BoardLogic : IBoardInterface
     {
 
-        public void PrintBoard2(char[,] gameBoard) 
-        {
-            Console.WriteLine("             . . . . . . . . . . . . . . . . . .");
-
-            for (int i = 0; i < gameBoard.GetLength(0); i++)
-            {
-                int innerLoop = gameBoard.GetLength(1);
-
-                for (int j = 0; j < innerLoop; j++)
-                {
-                    char hero = gameBoard[i, j];
-
-
-                    if (j == 0)
-                    {
-
-
-                        if (hero == 'H' || hero == 'Q' || hero == '+' || hero == '^' || hero == '$')
-                        {
-
-                            Console.Write("             . " +hero);
-                        }
-                        else
-                        {
-                            Console.Write("             . "+ ' ');
-                        }
-
-                    }
-                    else if (j == innerLoop - 1)
-                    {
-
-                        if (hero == 'H' || hero == 'Q' || hero == '+' || hero == '^'|| hero == '$')
-                        {
-                            Console.Write(" "+ hero+ " .");
-                        }
-                        else
-                        {
-
-                           Console.Write("   .");
-
-                        }
-
-                    }
-                    else
-                    {
-
-                        if (hero == 'H' || hero == 'Q' || hero == '+' || hero == '^' || hero == '$')
-                        {
-                            Console.Write("   " + hero);
-                        }
-                        else
-                        {
-                            Console.Write("    ");
-                        }
-                    }
-                }
-
-                Console.WriteLine();
-            }
-
-            Console.WriteLine("             . . . . . . . . . . . . . . . . . .");
-        }
-
+       
         public void PrintBoard(char[,] gameBoard)
         {
-            const string horizontalLine = "             . . . . . . . . . . . . . . . .";
+            const string horizontalLine = "             . . . . . . . . . . . . . . . . . . . . . . . . .";
             Console.WriteLine();   
             Console.WriteLine(horizontalLine);
 
@@ -225,10 +163,10 @@ namespace schoolProject
         {
             var direction = directionToGo switch
             {
-                'U' => wall.isUp,
-                'D' => wall.isDown,
-                'L' => wall.isLeft,
-                'R' => wall.isRight,
+                'U' => wall.isAWall,
+                //'D' => wall.isDown,
+                //'L' => wall.isLeft,
+                //'R' => wall.isRight,
                 _ => false,
             };
             return direction;

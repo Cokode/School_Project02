@@ -21,7 +21,7 @@ namespace schoolProject
         {
             BoardLogic.AddHero(Board.gameBoard, Hero);
             BoardLogic.AddQueen(Board.gameBoard, Queen);
-            GenerateWalls(10);
+            LoadWalls();
             GenerateRewards(12);
             BoardLogic.LoadReward(Board.rewards, Board.gameBoard);
             BoardLogic.PrintBoard(Board.gameBoard);

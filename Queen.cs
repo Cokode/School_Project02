@@ -12,7 +12,7 @@ namespace schoolProject
         {
             Random r = new Random();
             int col = r.Next(0, 15);
-            queenPosition = new(21, col);
+            queenPosition = new(20, col);
             this.Points = 100;
         }
 

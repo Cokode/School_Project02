@@ -17,29 +17,29 @@ namespace schoolProject
        
         public void PrintBoard(char[,] gameBoard)
         {
-            const string horizontalLine = "             . . . . . . . . . . . . . . . . . . . . . . . . .";
+            const string horizontalLine = "              . . . . . . . . . . . . . . . . . . . . . . . .";
             Console.WriteLine();   
             Console.WriteLine(horizontalLine);
 
             for (int i = 0; i < gameBoard.GetLength(0); i++)
             {
-                Console.Write("             .");
+                Console.Write("              .");
 
                 for (int j = 0; j < gameBoard.GetLength(1); j++)
                 {
                     char hero = gameBoard[i, j];
                     char displayChar = ' ';
 
-                    if (hero == 'H' || hero == 'Q' || hero == '+' || hero == '|' || hero == '-')
+                    if (hero == 'H' || hero == 'Q' || hero == '$' || hero == '|' || hero == '-')
                     {
                         displayChar = hero;
                     }
 
-                    Console.Write($"  {displayChar}");
+                    Console.Write($" {displayChar} ");
 
                     if (j == gameBoard.GetLength(1) - 1)
                     {
-                        Console.Write("  .");
+                        Console.Write(".");
                     }
                 }
 

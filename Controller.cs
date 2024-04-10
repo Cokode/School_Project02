@@ -23,21 +23,13 @@ namespace schoolProject
             BoardLogic.AddQueen(Board.gameBoard, Queen);
             LoadWalls();
             LoadRewards();
-            //GenerateRewards(12);
-            //BoardLogic.LoadReward(Boar d.rewards, Board.gameBoard);
             BoardLogic.PrintBoard(Board.gameBoard);
             
         }
 
-        //public void printBoard()
-        //{
-        //    BoardLogic.PrintBoard(Board.gameBoard);
-        //}
-
         public void GenerateWalls(int row) 
         {
             char t = (row + 1) % 2 == 0 ? '-' : '|';
-          //  if (row == Board.gameBoard.GetLength(0)- 1 || row == 0) t = '|';
 
             Position po;
             Wall newWall;

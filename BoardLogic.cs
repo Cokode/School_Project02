@@ -97,55 +97,62 @@ namespace schoolProject
             if (heroPosition != null) { }
         }
 
-        public Position SetHeroDirection(Direction direction, Hero hero)
+        public Position? SetHeroDirection(Direction direction, Hero hero, List<Wall> walls)
         {
-            Position? po;
             int row = hero.heroPosition.row;
             int column = hero.heroPosition.col;
 
-            switch (direction)
+            Position? newPosition = direction switch
             {
-                case Direction.North:
-                    row -= 2;
-                    po = new Position(row, column);
-                    break;
+                Direction.North => new Position(--row, column),
+                Direction.South => new Position(++row, column),
+                Direction.West => new Position(row, --column),
+                Direction.East => new Position(row, ++column),
+                _ => null,
+            };
 
-                case Direction.South:
-                    row += 2;
-                    po = new Position(row, column);
-                    break;
-                case Direction.West:
-                    column -= 2;
-                    po = new Position(row, column);
-                    break;
-                case Direction.East:
-                    column += 2;
-                    po = new Position(row, ++column);
-                    break;
-
-                default:
-                    po = null;
-                    break;
+            if (newPosition == null || !ValidateCurrentIndex(newPosition))
+            {
+                // Consider throwing an exception with a meaningful error message here.
+                return null;
             }
 
-            return po;
+            return newPosition;
+        }
+
+        public bool IsWallExist(Position newPosition, List<Wall> walls)
+        {     
+            return CheckForWall(walls, newPosition);
         }
 
 
-        public bool validMoveIndex(Position position)
+
+
+        public bool ValidateCurrentIndex(Position position)
         {
-            return (position.row < 6 && position.row >= 0) 
-                && (position.col >= 0 && position.col < 6);
+            return (position.row) >= 0 && (position.row < 21)
+                && (position.col >= 0 && position.col < 14);
+        }
+
+        public bool ValidateMoveAttempt(Position position, int direction, char ch)
+        {
+           if (ValidateCurrentIndex(position))
+            {
+               if (ch == 'U' || ch == 'W')
+                {
+                    return (direction - 1) >= 0;
+                }
+
+                return (direction + 1) < 21;
+           }
+
+            return false;
         }
 
 
-        public void implementMove(Hero hero, char direction, List<Wall> walls) {
+  
 
-
-        }
-
-
-        public Wall CheckForWall(List<Wall> walls, Position position) // should take hero position as parameter
+        public bool CheckForWall(List<Wall> walls, Position position) // should take hero position as parameter
         {
             Wall? wall = null;
 
@@ -153,10 +160,10 @@ namespace schoolProject
             {
                 if (item.WallPosition.Equals(position))
                 {
-                    wall = item; break;
+                    return true;
                 }
             }
-            return wall;
+            return false;
         }
 
         public bool CheckBlockedArea(Wall wall, char directionToGo) // checks for what direction is blocked

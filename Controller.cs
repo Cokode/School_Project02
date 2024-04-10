@@ -169,9 +169,9 @@ namespace schoolProject
             Console.WriteLine("Press a key (Page Up, Page Down, End, Home) or press Q to quit...");
 
             Wall? w;
-            Position po;
+            Position? po;
             ConsoleKeyInfo keyInfo;
-            
+           
             do
             {
                 keyInfo = Console.ReadKey(true);
@@ -180,36 +180,16 @@ namespace schoolProject
                 {
                     case ConsoleKey.PageUp:
                         po = BoardLogic.SetHeroDirection(Direction.North, Hero);
-                        if (BoardLogic.validMoveIndex(po))
-                        {
-                            w = BoardLogic.CheckForWall(Board.walls, Hero.heroPosition);
-                            if (w != null) // there is a wall 
-                            {
-                                if (BoardLogic.CheckBlockedArea(w, 'U'))
-                                {
-                                    // not a possible move. 
-                                }
-                                else
-                                {
-                                    // is a possible move
-                                    ImplementMove(po);
-                                }
-                            }
-                            else // there is no wall 
-                            {
-                                ImplementMove(po);
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("This direction is not possible.");
-                        }
-
                         break;
-
-                    case ConsoleKey.PageDown: break;
-                    case ConsoleKey.End: break;
-                    case ConsoleKey.Home: break;
+                    case ConsoleKey.PageDown:
+                        po = BoardLogic.SetHeroDirection(Direction.South, Hero); 
+                        break;
+                    case ConsoleKey.End:
+                        po = BoardLogic.SetHeroDirection(Direction.East, Hero);
+                        break;
+                    case ConsoleKey.Home:
+                        po = BoardLogic.SetHeroDirection(Direction.West, Hero);
+                        break;
                     default:
                         Console.WriteLine("You've entered the wrong key.");
                         break;
@@ -218,6 +198,8 @@ namespace schoolProject
 
             
         }
+
+
 
         public void ImplementMove(Position po)
         {

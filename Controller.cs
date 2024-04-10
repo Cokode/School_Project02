@@ -22,8 +22,9 @@ namespace schoolProject
             BoardLogic.AddHero(Board.gameBoard, Hero);
             BoardLogic.AddQueen(Board.gameBoard, Queen);
             LoadWalls();
+            LoadRewards();
             //GenerateRewards(12);
-            //BoardLogic.LoadReward(Board.rewards, Board.gameBoard);
+            //BoardLogic.LoadReward(Boar d.rewards, Board.gameBoard);
             BoardLogic.PrintBoard(Board.gameBoard);
             
         }
@@ -35,85 +36,83 @@ namespace schoolProject
 
         public void GenerateWalls(int row) 
         {
-            char t = row % 2 == 0 ? '|' : '-';
+            char t = (row + 1) % 2 == 0 ? '-' : '|';
+          //  if (row == Board.gameBoard.GetLength(0)- 1 || row == 0) t = '|';
+
             Position po;
             Wall newWall;
 
             for (int i = 0; i < 8; i++)
-            { 
+            {
                 do
                 {
                     po = new(row, rand.Next(0, 15));
-                } while (IsPositionTaken(po));
+                } while (IsPositionTaken(po, t));
 
+                bool rando = rand.Next(0, 2) == 1;
+
+                if (rando)
+                {
                     newWall = new Wall(
-                    isAWall: rand.Next(0, 2) == 1,
-                    position: po
-                );
+                     isAWall: rando,
+                     position: po
+                    );
 
-                newWall.wallType = newWall.isAWall ? t : ' ';
-                Board.gameBoard[po.row, po.col] = newWall.wallType;
-                
-                Board.walls.Add(newWall);
+                    Board.gameBoard[po.row, po.col] = t;
+                    Board.walls.Add(newWall);
+                } 
             }
         }
 
         public void LoadWalls()
         {
-            int row = Board.gameBoard.GetLength(0)-1;
+            int row = 0;
             do
             {
                 GenerateWalls(row);
-                row--;
-            } while (row >= 0);
+                row++;
+            } while (row < Board.gameBoard.GetLength(0));
         }
 
-        public void GenerateRewards(int numberOfReward)
+        public void GenerateRewards(int row)
         {
+            char t = (row + 1) % 2 == 0 ? ' ' : '$';
             Position po;
-            Random rand = new Random();
-         
-            for (int i = 0; i < numberOfReward; i++)
+            Reward? reward;
+
+            for (int i = 0; i < 8; i++)
             {
-               
                 do
                 {
-                    po = new(rand.Next(0, 18), rand.Next(0, 8));
-                } while (IsPositionTaken2(po, Board.rewards));
+                    po = new(row, rand.Next(0, 15));
+                } while (IsPositionTaken2(po));
 
-                Reward reward = new Reward(
-                     rewardPosition: po,
-                     points: rand.Next(5, 20)
-                 );
+                bool rando = rand.Next(0, 2) == 1;
 
-                Board.rewards.Add(reward);
-            }
-
-            Reward reward2 = new Reward(
-                     rewardPosition: new Position(1, 0),
-                     points: rand.Next(5, 20)
-                 );
-
-            Board.rewards.
-                Add(reward2);
-        }
-
-        private bool IsPositionTaken2(Position position, List<Reward> rewards)
-        {
-            if ((position.row == 0 && position.col == 0) ||
-                (position.row == 17 && position.col == 8)) return true; // ensure there is no wall in the hero start index
-
-            foreach (var re in rewards)
-            {
-                if (re.rewardPosition == position)
+                if (!(Board.gameBoard[po.row, po.col] == '|') && rando )
                 {
-                    return true;
+                    reward = new Reward(
+                        rewardPosition: po,
+                        points: rand.Next(0, 25),
+                        isHaveReward: rando
+                     );
+
+                    Board.gameBoard[po.row, po.col] = t;
+                    Board.rewards.Add(reward);
                 }
             }
-            return false;
+        }
+        public void LoadRewards()
+        {
+            int row = 0;
+            do
+            {
+                GenerateRewards(row);
+                row++;
+            } while (row < Board.gameBoard.GetLength(0));
         }
 
-        private bool IsPositionTaken(Position position)
+        private bool IsPositionTaken2(Position position)
         {
             int column = position.col;
 
@@ -125,12 +124,40 @@ namespace schoolProject
             }
 
             // Check if the column is an odd number
-            if (column % 2 != 0)
+            if ((column + 1) % 2 == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool IsPositionTaken(Position position, char t)
+        {
+            int column = position.col;
+
+            // Check if the position is occupied by the hero or queen
+            if ((position.row == Hero.heroPosition.row && position.col == Hero.heroPosition.col) ||
+                (position.row == Queen.queenPosition.row && position.col == Queen.queenPosition.col))
             {
                 return true;
             }
 
-            return false;
+            // Check if the column is an odd number
+            if (t == '|')
+            {
+                if ((column + 1) % 2 == 0)
+                {
+                    return false;
+                }
+                
+            } else
+            {
+                return false ;
+            }
+            
+
+            return true;
         }
 
 

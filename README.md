@@ -1,8 +1,8 @@
 
 #### __Program Professors__
-? _István Hegyes, chief of software development, L-Soft Zrt., Nyíregyháza guest_
+ _IstvÃ¡n Hegyes, chief of software development, L-Soft Zrt., NyÃ­regyhÃ¡za guest_
 
-? __Sándor Vályi (PhD), University of Nyíregyháza, Department of Mathematics and Informatics
+ __SÃ¡ndor VÃ¡lyi (PhD), University of NyÃ­regyhÃ¡za, Department of Mathematics and Informatics
 valyi.sandor at nye dot hu_
 
 

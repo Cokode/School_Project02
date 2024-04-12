@@ -50,14 +50,6 @@ namespace schoolProject
         }
 
 
-        public void AddWall(List<Wall> walls, char[,] gameBoard)
-        {
-            foreach (var item in walls)
-            {
-                gameBoard[item.WallPosition.row, item.WallPosition.col] = '^';
-            }
-        }
-
         public void AddHero(char[,] gameBoard, Hero hero)
         {
             if (gameBoard != null)
@@ -97,7 +89,7 @@ namespace schoolProject
             if (heroPosition != null) { }
         }
 
-        public Position? SetHeroDirection(Direction direction, Hero hero, List<Wall> walls)
+        public Position? SetHeroDirection(Direction direction, Hero hero)
         {
             int row = hero.heroPosition.row;
             int column = hero.heroPosition.col;
@@ -110,12 +102,6 @@ namespace schoolProject
                 Direction.East => new Position(row, ++column),
                 _ => null,
             };
-
-            if (newPosition == null || !ValidateCurrentIndex(newPosition))
-            {
-                // Consider throwing an exception with a meaningful error message here.
-                return null;
-            }
 
             return newPosition;
         }
@@ -131,7 +117,7 @@ namespace schoolProject
         public bool ValidateCurrentIndex(Position position)
         {
             return (position.row) >= 0 && (position.row < 21)
-                && (position.col >= 0 && position.col < 14);
+                && (position.col >= 0 && position.col < 15);
         }
 
         public bool ValidateMoveAttempt(Position position, int direction, char ch)
@@ -154,12 +140,19 @@ namespace schoolProject
 
         public bool CheckForWall(List<Wall> walls, Position position) // should take hero position as parameter
         {
-            Wall? wall = null;
 
             foreach (var item in walls)
             {
-                if (item.WallPosition.Equals(position))
+                if (item.wallType == ' ')
                 {
+                    Console.WriteLine("Wall with no type");
+                    walls.Remove(item);
+                }
+
+                    if (item.WallPosition.Equals(position) && item.wallType != ' ')
+                {
+                   
+                    Console.Write("there is a wall at index " +position.row + " " + position.col + " sign => " + item.wallType);
                     return true;
                 }
             }
@@ -193,13 +186,10 @@ namespace schoolProject
                     break;
                 }
             }
+
             return point;
         }
-        public void rewardAdder(int points, Hero hero)
-        {
-            hero.points += points;
-            Console.WriteLine($"{points} added to Hero ");
-        }
+       
     }
 }
 

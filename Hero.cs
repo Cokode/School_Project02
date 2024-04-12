@@ -25,7 +25,7 @@ namespace schoolProject
         {
             HeroInstance ??= new Hero
             {
-                points = 0
+                points = 15
             };
 
             return HeroInstance;

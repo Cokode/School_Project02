@@ -112,8 +112,7 @@ namespace schoolProject
 
                 if (wall.WallPosition.Equals(position))
                 {
-                    Console.Write($"There is a wall at index {position.row}" +
-                        $" {position.col} sign => {wall.wallType}. " +
+                    Console.Write($"         There is a wall. | " +
                         $"Press `Enter` to break wall with 5 points");
                     return true;
                 }
@@ -133,6 +132,16 @@ namespace schoolProject
                 }
             }
             return 0;
+        }
+
+        public void CheckforWinning(List<Reward> rewards, Queen queen, Hero hero)
+        {
+            int count = rewards.Count;
+            if ((queen.queenPosition == hero.heroPosition) && !queen.queenIsCaptured)
+            {
+                Console.Write($"         You've captured the queen! You may press Q to end Game now. Total points earned: {hero.points}. ");
+                queen.queenIsCaptured = true;
+            }
         }
 
 

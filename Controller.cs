@@ -223,25 +223,25 @@ namespace schoolProject
             int newPoints = BoardLogic.CheckForReward(Hero, Board.rewards);
             Hero.points += newPoints;
             RewardStatement(newPoints);
+            BoardLogic.CheckforWinning(Board.rewards, Queen, Hero);
         }
 
         public void RewardStatement(int reward)
         {
-            if (reward > 0) Console.Write(reward +
-                " points earned | Total Points: " + Hero.points);
+            if (reward > 0) Console.Write($"         {reward} points earned | Total Points: {Hero.points}");
         }
 
         public void BreakAWall()
         {
             if (Hero.wallToBreak == null)
             {
-                Console.Write("No wall to break");
+                Console.Write("         No wall to break");
                 return;
             }
 
             if (Hero.points < 5)
             {
-                Console.Write("You need 5 points to break a wall");
+                Console.Write("         You need 5 points to break a wall");
                 return;
             }
 

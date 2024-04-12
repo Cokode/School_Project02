@@ -24,6 +24,7 @@ namespace schoolProject
             LoadWalls();
             LoadRewards();
             BoardLogic.PrintBoard(Board.gameBoard);
+            MovePosibility();
             
         }
 
@@ -47,7 +48,8 @@ namespace schoolProject
                 {
                     newWall = new Wall(
                      isAWall: rando,
-                     position: po
+                     position: po,
+                     wallType: t
                     );
 
                     Board.gameBoard[po.row, po.col] = t;
@@ -167,48 +169,70 @@ namespace schoolProject
         public void MovePosibility()
         {
             Console.WriteLine("Press a key (Page Up, Page Down, End, Home) or press Q to quit...");
-
-            Wall? w;
-            Position? po;
             ConsoleKeyInfo keyInfo;
-           
+
             do
             {
                 keyInfo = Console.ReadKey(true);
+                Console.Clear();
 
                 switch (keyInfo.Key)
                 {
                     case ConsoleKey.PageUp:
-                        po = BoardLogic.SetHeroDirection(Direction.North, Hero);
+
+                        MoveAndPlay(Direction.North);
                         break;
                     case ConsoleKey.PageDown:
-                        po = BoardLogic.SetHeroDirection(Direction.South, Hero); 
+                        MoveAndPlay(Direction.South);
                         break;
                     case ConsoleKey.End:
-                        po = BoardLogic.SetHeroDirection(Direction.East, Hero);
+                        MoveAndPlay(Direction.East);
                         break;
                     case ConsoleKey.Home:
-                        po = BoardLogic.SetHeroDirection(Direction.West, Hero);
+                        MoveAndPlay(Direction.West);
                         break;
                     default:
-                        Console.WriteLine("You've entered the wrong key.");
+                        BoardLogic.PrintBoard(Board.gameBoard);
                         break;
                 }
             } while (keyInfo.Key != ConsoleKey.Q);
 
-            
+            //
         }
 
+        public void MoveAndPlay(Direction newDirection)
+        {
+            Position newPosition = BoardLogic.SetHeroDirection(newDirection, Hero);
 
+            if (newPosition == null || !BoardLogic.ValidateCurrentIndex(newPosition))
+            {
+                BoardLogic.PrintBoard(Board.gameBoard);
+                return;
+            }
 
-        public void ImplementMove(Position po)
+            if (!BoardLogic.IsWallExist(newPosition, Board.walls))
+            {
+                UpdateHeroPosition(newPosition);
+                RewardAdder();
+            }
+
+            BoardLogic.PrintBoard(Board.gameBoard);
+        }
+
+        private void UpdateHeroPosition(Position newPosition)
         {
             Board.gameBoard[Hero.heroPosition.row, Hero.heroPosition.col] = ' ';
-            Hero.heroPosition = po;
-            BoardLogic.AddHero(Board.gameBoard, Hero);
-            BoardLogic.rewardAdder(BoardLogic.CheckForReward(Hero, Board.rewards), Hero);
+            Hero.heroPosition = newPosition;
+            Board.gameBoard[Hero.heroPosition.row, Hero.heroPosition.col] = 'H'; // update hero position on gameBoard
+        }
+
+        public void RewardAdder() 
+        {
+            int newPoints = BoardLogic.CheckForReward(Hero, Board.rewards);
+            Hero.points += newPoints;
         }
 
     }
+    // && Board.gameBoard[newPosition.row, newPosition.col] == ' '
 
 }

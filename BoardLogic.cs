@@ -112,7 +112,9 @@ namespace schoolProject
 
                 if (wall.WallPosition.Equals(position))
                 {
-                    Console.Write($"There is a wall at index {position.row} {position.col} sign => {wall.wallType}. Press Enter key to break wall with 5 points");
+                    Console.Write($"There is a wall at index {position.row}" +
+                        $" {position.col} sign => {wall.wallType}. " +
+                        $"Press `Enter` to break wall with 5 points");
                     return true;
                 }
             }

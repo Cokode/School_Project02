@@ -9,8 +9,8 @@ namespace schoolProject
     public class Board
     {
         public char[,] gameBoard {get;}
-        public List<Wall> walls { get; set; }
-        public List<Reward> rewards { get; set; }
+        public List<Wall> walls { get;}
+        public List<Reward> rewards { get;}
         private static Board? board;
         private Queen? Queen {get;}
 

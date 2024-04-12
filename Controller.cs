@@ -24,8 +24,7 @@ namespace schoolProject
             LoadWalls();
             LoadRewards();
             BoardLogic.PrintBoard(Board.gameBoard);
-            MovePosibility();
-            
+            MovePosibility();  
         }
 
         public void GenerateWalls(int row) 
@@ -154,18 +153,6 @@ namespace schoolProject
             return true;
         }
 
-
-        private bool IsAdjacent(Position pos1, Position pos2)
-        {
-             // TODO check for index out of bound   
-
-            int rowDiff = Math.Abs(pos1.row - pos2.row);
-            int colDiff = Math.Abs(pos1.col - pos2.col);
-
-            // Check if positions are adjacent horizontally or vertically
-            return (rowDiff == 1 && colDiff == 0) || (rowDiff == 0 && colDiff == 1);
-        }
-
         public void MovePosibility()
         {
             Console.WriteLine("Press a key (Page Up, Page Down, End, Home) or press Q to quit...");
@@ -190,6 +177,10 @@ namespace schoolProject
                         break;
                     case ConsoleKey.Home:
                         MoveAndPlay(Direction.West);
+                        break;
+                    case ConsoleKey.Enter:
+                        BreakAWall();
+                        BoardLogic.PrintBoard(Board.gameBoard);
                         break;
                     default:
                         BoardLogic.PrintBoard(Board.gameBoard);
@@ -216,6 +207,7 @@ namespace schoolProject
                 RewardAdder();
             }
 
+            Hero.wallToBreak = newPosition;
             BoardLogic.PrintBoard(Board.gameBoard);
         }
 
@@ -230,9 +222,41 @@ namespace schoolProject
         {
             int newPoints = BoardLogic.CheckForReward(Hero, Board.rewards);
             Hero.points += newPoints;
+            RewardStatement(newPoints);
+        }
+
+        public void RewardStatement(int reward)
+        {
+            if (reward > 0) Console.Write(reward +
+                " points earned | Total Points: " + Hero.points);
+        }
+
+        public void BreakAWall()
+        {
+            if (Hero.wallToBreak == null)
+            {
+                Console.Write("No wall to break");
+                return;
+            }
+
+            if (Hero.points < 5)
+            {
+                Console.Write("You need 5 points to break a wall");
+                return;
+            }
+
+            var wallToRemove = Board.walls.FirstOrDefault(w => (w.WallPosition == Hero.wallToBreak));
+            if (wallToRemove != null)
+            {
+                Hero.points -= 5;
+                Board.gameBoard[Hero.wallToBreak.row, Hero.wallToBreak.col] = ' ';
+
+                Board.walls.Remove(wallToRemove);
+                Hero.wallToBreak = null;
+            }
+
+            
         }
 
     }
-    // && Board.gameBoard[newPosition.row, newPosition.col] == ' '
-
 }

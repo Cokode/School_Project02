@@ -16,8 +16,8 @@ namespace schoolProject
 
         private Board() {
             gameBoard = new char[21, 15];
-            rewards = []; // simplified initialization
-            walls = []; // simplified initialization
+            rewards = []; 
+            walls = [];
             Queen = new Queen();
         }
 

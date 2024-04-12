@@ -11,7 +11,7 @@ namespace schoolProject
         public int points { get; set; }
         public string name { get;}
         public Position heroPosition { get; set; }
-       // public Direction HeroDirection { get; set; } // may be redundant, remove 
+        public Position? wallToBreak { get; set; } 
         private static Hero? HeroInstance { get; set; } 
         
         private Hero() {

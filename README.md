@@ -8,6 +8,7 @@ This project is a console-based game implemented in C#. The objective is to guid
  - 
 ### Game Display on Console
 ![display image](https://github.com/Cokode/School_Project02/blob/trialBranch/image.png)
+`Hero` is denoted as -> `H` `Queen` as -> `Q`
 
 ### Classes
 

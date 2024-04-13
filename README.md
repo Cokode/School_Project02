@@ -3,10 +3,8 @@
 This project is a console-based game implemented in C#. The objective is to guide a hero through a grid-based board, avoiding obstacles and gathering rewards along the way. The game features random generation of walls and rewards, and players can use earned points to break walls. By default, the hero starts with 15 points, allowing them to break free if trapped between walls at the beginning of the game.
 
 #### _Program Professors_
- _István Hegyes, chief of software development, L-Soft Zrt., Nyíregyháza guest_
-
- _Sándor Vályi (PhD), University of Nyíregyháza, Department of Mathematics and Informatics
-valyi.sandor at nye dot hu_
+ - _István Hegyes, chief of software development, L-Soft Zrt., Nyíregyháza guest._
+ - _Sándor Vályi (PhD), University of Nyíregyháza, Department of Mathematics and Informatics valyi.sandor at nye dot hu._
 
 ### Classes
 

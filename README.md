@@ -5,6 +5,9 @@ This project is a console-based game implemented in C#. The objective is to guid
 #### _Program Professors_
  - _István Hegyes, chief of software development, L-Soft Zrt., Nyíregyháza guest._
  - _Sándor Vályi (PhD), University of Nyíregyháza, Department of Mathematics and Informatics valyi.sandor at nye dot hu._
+ - 
+### Game Display on Console
+![display image](https://github.com/Cokode/School_Project02/blob/trialBranch/image.png)
 
 ### Classes
 

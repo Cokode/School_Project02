@@ -155,7 +155,7 @@ namespace schoolProject
 
         public void MovePosibility()
         {
-            Console.WriteLine("Press a key (Page Up, Page Down, End, Home) or press Q to quit...");
+            Console.WriteLine("      Press a key (Page Up, Page Down, End, Home) or press Q to quit...");
             ConsoleKeyInfo keyInfo;
 
             do
@@ -193,7 +193,7 @@ namespace schoolProject
 
         public void MoveAndPlay(Direction newDirection)
         {
-            Position newPosition = BoardLogic.SetHeroDirection(newDirection, Hero);
+            Position? newPosition = BoardLogic.SetHeroDirection(newDirection, Hero);
 
             if (newPosition == null || !BoardLogic.ValidateCurrentIndex(newPosition))
             {

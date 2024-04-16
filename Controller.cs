@@ -205,9 +205,11 @@ namespace schoolProject
             {
                 UpdateHeroPosition(newPosition);
                 RewardAdder();
+            } else
+            {
+                Hero.wallToBreak = newPosition;
             }
 
-            Hero.wallToBreak = newPosition;
             BoardLogic.PrintBoard(Board.gameBoard);
         }
 
@@ -235,7 +237,7 @@ namespace schoolProject
         {
             if (Hero.wallToBreak == null)
             {
-                Console.Write("         No wall to break");
+                Console.Write("                   No wall to break");
                 return;
             }
 
@@ -253,6 +255,7 @@ namespace schoolProject
 
                 Board.walls.Remove(wallToRemove);
                 Hero.wallToBreak = null;
+                return;
             }
 
             

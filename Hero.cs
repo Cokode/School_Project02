@@ -19,6 +19,7 @@ namespace schoolProject
             name = "Hero";
             int col = r.Next(0, 15);
             heroPosition = new(0, col);
+            wallToBreak = null;
         }
 
         public static Hero InitializeHero()
